@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scale Core Labs | Ecommerce Platform Detector</title>
+  <style>
+    :root {
+      --bg: #060914;
+      --panel: rgba(15, 23, 42, 0.82);
+      --panel2: rgba(17, 24, 39, 0.9);
+      --card: rgba(255,255,255,.055);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(148,163,184,.18);
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --orange: #f59e0b;
+      --red: #ef4444;
+      --shadow: 0 30px 90px rgba(0,0,0,.38);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(56,189,248,.22), transparent 30%),
+        radial-gradient(circle at 88% 16%, rgba(34,197,94,.16), transparent 30%),
+        linear-gradient(135deg, #060914 0%, #0b1020 48%, #050816 100%);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 58px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 850;
+      letter-spacing: -.04em;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #020617;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      box-shadow: 0 16px 36px rgba(56,189,248,.22);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 650;
+      letter-spacing: 0;
+      margin-top: 1px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,.58);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.66));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      padding: 46px;
+    }
+
+    .hero-copy:after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      bottom: -120px;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: rgba(56,189,248,.11);
+      filter: blur(8px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #bae6fd;
+      border: 1px solid rgba(56,189,248,.3);
+      background: rgba(56,189,248,.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6.2vw, 70px);
+      line-height: .95;
+      letter-spacing: -.075em;
+      margin-bottom: 20px;
+      max-width: 760px;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 660px;
+    }
+
+    .chips {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      color: #dbeafe;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .scanner {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 430px;
+    }
+
+    h2, h3 {
+      letter-spacing: -.045em;
+    }
+
+    .scanner h2 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .scanner p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .inputRow {
+      border: 1px solid var(--line);
+      background: rgba(2,6,23,.58);
+      border-radius: 18px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 15px;
+      padding: 12px;
+      min-width: 0;
+    }
+
+    input::placeholder { color: #64748b; }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 18px;
+      cursor: pointer;
+      color: #020617;
+      font-weight: 950;
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      transition: .18s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 38px rgba(34,197,94,.2);
+    }
+
+    button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 17px;
+      padding: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -.04em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: .92fr 1.08fr;
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(15,23,42,.88), rgba(15,23,42,.68));
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .sectionHead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .sectionHead h3 {
+      font-size: 22px;
+    }
+
+    .status {
+      color: #86efac;
+      background: rgba(34,197,94,.09);
+      border: 1px solid rgba(34,197,94,.25);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .platform {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .platformIcon {
+      width: 74px;
+      height: 74px;
+      border-radius: 23px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,197,94,.16));
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 950;
+    }
+
+    .platform h4 {
+      font-size: 31px;
+      letter-spacing: -.055em;
+    }
+
+    .platform p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .confidenceLabel {
+      display: flex;
+      justify-content: space-between;
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.14);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .barFill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      border-radius: inherit;
+      transition: width .75s ease;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 15px;
+      padding: 13px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: #dbeafe;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-top: 6px;
+      flex: none;
+    }
+
+    .insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .insight {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 112px;
+    }
+
+    .insight span {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 850;
+    }
+
+    .insight strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.035em;
+      margin-top: 8px;
+    }
+
+    .insight p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .recommendation {
+      border: 1px solid rgba(56,189,248,.24);
+      background: rgba(56,189,248,.075);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .recommendation strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .recommendation p {
+      color: #bfdbfe;
+      font-size: 14px;
+    }
+
+    .copyBtn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .error {
+      border: 1px solid rgba(239,68,68,.35);
+      background: rgba(239,68,68,.09);
+      color: #fecaca;
+      border-radius: 16px;
+      padding: 14px;
+      margin-top: 14px;
+      display: none;
+    }
+
+    .disclaimer {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .hidden { display: none; }
+
+    @media (max-width: 900px) {
+      .hero, .dashboard { grid-template-columns: 1fr; }
+      .hero-copy { padding: 34px; }
+    }
+
+    @media (max-width: 580px) {
+      .nav { flex-direction: column; align-items: flex-start; margin-bottom: 36px; }
+      .inputRow { flex-direction: column; align-items: stretch; }
+      button { width: 100%; }
+      .stats, .insights { grid-template-columns: 1fr; }
+      .platform { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo">SC</div>
+        <div>
+          <div>Scale Core Labs</div>
+          <small>Ecommerce Intelligence Suite</small>
+        </div>
+      </div>
+      <div class="pill">Cloudflare-powered platform detection</div>
+    </nav>
+
+    <section class="hero">
+      <div class="panel hero-copy">
+        <div class="eyebrow">⚡ Live ecommerce stack scanner</div>
+        <h1>Identify what platform powers any online store.</h1>
+        <p>
+          Paste a store URL and generate a client-ready report with the likely ecommerce platform,
+          confidence score, public technical signals, and service opportunities.
+        </p>
+        <div class="chips">
+          <span class="chip">Shopify</span>
+          <span class="chip">WooCommerce</span>
+          <span class="chip">BigCommerce</span>
+          <span class="chip">Magento</span>
+          <span class="chip">Wix</span>
+          <span class="chip">Squarespace</span>
+          <span class="chip">Webflow</span>
+          <span class="chip">Custom</span>
+        </div>
+      </div>
+
+      <div class="panel scanner">
+        <div>
+          <h2>Analyze a Store</h2>
+          <p>
+            Enter a store URL below. The app calls your Cloudflare Worker backend,
+            fetches the target site server-side, and scans public platform signals in real time.
+          </p>
+
+          <div class="inputRow">
+            <input id="urlInput" type="url" placeholder="https://www.example.com" autocomplete="off" />
+            <button id="scanBtn" onclick="scanStore()">Analyze URL</button>
+          </div>
+
+          <div id="errorBox" class="error"></div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong>Live</strong><span>Server scan</span></div>
+          <div class="stat"><strong>10+</strong><span>Platforms</span></div>
+          <div class="stat"><strong>Copy</strong><span>Client report</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="dashboard hidden">
+      <div class="card">
+        <div class="sectionHead">
+          <h3>Detection Result</h3>
+          <span class="status">Analysis Complete</span>
+        </div>
+
+        <div class="platform">
+          <div id="platformIcon" class="platformIcon">?</div>
+          <div>
+            <h4 id="platformName">Unknown</h4>
+            <p id="platformSubtext">Platform detection result will appear here.</p>
+          </div>
+        </div>
+
+        <div class="confidenceLabel">
+          <span>Confidence Score</span>
+          <span id="confidenceText">0%</span>
+        </div>
+        <div class="bar"><div id="barFill" class="barFill"></div></div>
+
+        <div id="evidenceList" class="list"></div>
+      </div>
+
+      <div class="card">
+        <div class="sectionHead">
+          <h3>Client Report</h3>
+          <span class="status">Ready to Share</span>
+        </div>
+
+        <div class="insights">
+          <div class="insight">
+            <span>Website</span>
+            <strong id="siteValue">—</strong>
+            <p>Normalized domain from submitted URL.</p>
+          </div>
+          <div class="insight">
+            <span>Platform Type</span>
+            <strong id="platformType">—</strong>
+            <p id="platformTypeNote">Public signals scanned through the backend.</p>
+          </div>
+          <div class="insight">
+            <span>Opportunity</span>
+            <strong id="opportunityValue">—</strong>
+            <p>Use findings to shape a relevant service pitch.</p>
+          </div>
+          <div class="insight">
+            <span>Recommended Action</span>
+            <strong id="actionValue">—</strong>
+            <p>Lead with a low-friction audit or improvement roadmap.</p>
+          </div>
+        </div>
+
+        <div class="recommendation">
+          <strong>Suggested outreach angle</strong>
+          <p id="recommendationText">Run a scan to generate a recommendation.</p>
+        </div>
+
+        <button class="copyBtn" onclick="copyReport()">Copy Client Report</button>
+      </div>
+    </section>
+
+    <p class="disclaimer">
+      Platform detection is based on publicly visible technical signals and should be manually verified before making business-critical decisions.
+    </p>
+  </main>
+
+  <script>
+    const API_URL = "https://platform-detector-api.soft-sunset-3b3b.workers.dev";
+    let lastReport = "";
+
+    const localFallbacks = {
+      shopify: {
+        platform: "Shopify",
+        confidence: 92,
+        evidence: ["Shopify-style storefront pattern detected.", "Likely hosted ecommerce architecture."],
+        platformType: "Hosted Ecommerce Platform",
+        recommendedServices: ["Theme optimization", "Conversion audit", "Product page SEO"],
+        outreachAngle: "This store appears to run on Shopify. A strong offer would focus on theme improvements, product-page conversion, collection structure, and app cleanup."
+      },
+      woocommerce: {
+        platform: "WooCommerce",
+        confidence: 88,
+        evidence: ["WordPress/WooCommerce URL pattern detected.", "Product-category path suggests WooCommerce catalog structure."],
+        platformType: "WordPress Ecommerce",
+        recommendedServices: ["SEO audit", "Plugin review", "Product data cleanup"],
+        outreachAngle: "This store appears to run on WooCommerce. A strong offer would focus on product page SEO, category structure, plugin health, speed, and ecommerce maintenance."
+      },
+      unknown: {
+        platform: "Custom / Unknown",
+        confidence: 48,
+        evidence: ["No strong platform fingerprint returned.", "Additional manual verification may be needed."],
+        platformType: "Custom or Undetected Platform",
+        recommendedServices: ["Discovery audit", "Technical SEO review", "Conversion review"],
+        outreachAngle: "This site may need a deeper technical audit covering platform stack, SEO, speed, user experience, and conversion opportunities."
+      }
+    };
+
+    function normalizeDomain(url) {
+      try {
+        const clean = url.startsWith("http") ? url : "https://" + url;
+        return new URL(clean).hostname.replace(/^www\./, "");
+      } catch {
+        return url.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0] || "Unknown website";
+      }
+    }
+
+    function inferIcon(platform) {
+      const p = String(platform || "").toLowerCase();
+      if (p.includes("shopify")) return "S";
+      if (p.includes("woo") || p.includes("wordpress")) return "WP";
+      if (p.includes("bigcommerce")) return "B";
+      if (p.includes("magento") || p.includes("adobe")) return "M";
+      if (p.includes("wix")) return "W";
+      if (p.includes("square")) return "SQ";
+      if (p.includes("webflow")) return "WF";
+      return "?";
+    }
+
+    function fallbackDetect(url) {
+      const v = url.toLowerCase();
+      if (v.includes("myshopify") || v.includes("shopify") || v.includes("/collections/")) return {...localFallbacks.shopify};
+      if (v.includes("product-category") || v.includes("woocommerce") || v.includes("wp-content")) return {...localFallbacks.woocommerce};
+      return {...localFallbacks.unknown};
+    }
+
+    async function scanStore() {
+      const input = document.getElementById("urlInput");
+      const button = document.getElementById("scanBtn");
+      const error = document.getElementById("errorBox");
+      const url = input.value.trim();
+
+      error.style.display = "none";
+      error.textContent = "";
+
+      if (!url) {
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Analyzing...";
+
+      try {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+
+        let data = await res.json();
+
+        if (!res.ok || data.error) {
+          throw new Error(data.error || "The scanner could not analyze this URL.");
+        }
+
+        renderResults(url, data);
+      } catch (err) {
+        const fallback = fallbackDetect(url);
+        fallback.evidence = [
+          "Live backend request failed or was blocked by the target site.",
+          "Showing a preliminary fallback result based on URL patterns.",
+          err.message
+        ];
+        renderResults(url, fallback);
+        error.textContent = "Live scan warning: " + err.message + " — showing preliminary fallback result.";
+        error.style.display = "block";
+      } finally {
+        button.disabled = false;
+        button.textContent = "Analyze URL";
+      }
+    }
+
+    function renderResults(submittedUrl, data) {
+      const domain = normalizeDomain(data.normalizedUrl || data.finalUrl || submittedUrl);
+      const platform = data.platform || data.detectedPlatform || "Custom / Unknown";
+      const confidence = Math.max(0, Math.min(100, Number(data.confidence || data.confidenceScore || 50)));
+      const evidence = data.evidence || data.signals || ["No detailed evidence returned."];
+      const platformType = data.platformType || (platform.includes("Woo") ? "WordPress Ecommerce" : "Ecommerce Platform");
+      const services = data.recommendedServices || ["Website audit", "SEO review", "Conversion improvements"];
+      const outreach = data.outreachAngle || data.recommendation || "Use this result to create a platform-specific ecommerce improvement offer.";
+
+      document.getElementById("dashboard").classList.remove("hidden");
+      document.getElementById("platformIcon").textContent = inferIcon(platform);
+      document.getElementById("platformName").textContent = platform;
+      document.getElementById("platformSubtext").textContent = "Likely platform detected for " + domain + ".";
+      document.getElementById("confidenceText").textContent = confidence + "%";
+      document.getElementById("barFill").style.width = confidence + "%";
+      document.getElementById("siteValue").textContent = domain;
+      document.getElementById("platformType").textContent = platformType;
+      document.getElementById("platformTypeNote").textContent = "Detected using public technical signals from the website.";
+      document.getElementById("opportunityValue").textContent = services.slice(0, 2).join(" + ");
+      document.getElementById("actionValue").textContent = "Offer Site Audit";
+      document.getElementById("recommendationText").textContent = outreach;
+
+      const list = document.getElementById("evidenceList");
+      list.innerHTML = "";
+      evidence.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = '<span class="dot"></span><span></span>';
+        div.querySelector("span:last-child").textContent = item;
+        list.appendChild(div);
+      });
+
+      lastReport =
+`Scale Core Labs Ecommerce Platform Report
+
+Website: ${domain}
+Detected Platform: ${platform}
+Confidence: ${confidence}%
+Platform Type: ${platformType}
+
+Evidence:
+- ${evidence.join("\n- ")}
+
+Recommended Opportunities:
+- ${services.join("\n- ")}
+
+Suggested Outreach Angle:
+${outreach}
+
+Disclaimer: Platform detection is based on publicly visible technical signals and should be manually verified.`;
+
+      document.getElementById("dashboard").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function copyReport() {
+      if (!lastReport) return;
+      await navigator.clipboard.writeText(lastReport);
+      const btn = document.querySelector(".copyBtn");
+      const old = btn.textContent;
+      btn.textContent = "Copied Report";
+      setTimeout(() => btn.textContent = old, 1200);
+    }
+  </script>
+</body>
+</html>
